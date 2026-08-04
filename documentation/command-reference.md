@@ -72,3 +72,23 @@ scp -i /path/to/private-key.pem ubuntu@EC2_PUBLIC_IP:home/ubuntu/linux-server-mo
 ```
 
 
+## CPU Monitoring
+
+
+Display system load averages.
+
+```bash
+uptime
+```
+
+List running processes sorted by CPU usage.
+
+```bash
+ps aux --sort=-%cpu
+```
+
+Display the first highest CPU-consuming processes.
+
+```bash
+ps aux --sort=-%cpu | head -n 6
+ 
