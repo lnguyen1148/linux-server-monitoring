@@ -33,6 +33,16 @@ mkdir -p "$REPORT_DIR"
 	uptime -p
 	echo
 
+	echo "CPU Load"
+	echo "--------"
+	uptime
+	echo
+
+	echo "Top 5 CPU Processes"
+	echo "-------------------"
+	ps aux --sort=-%cpu | head -n 6
+	echo
+
 	echo "Memory Usage"
 	echo "------------"
 	free -h
