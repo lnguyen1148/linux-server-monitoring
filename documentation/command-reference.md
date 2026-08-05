@@ -91,4 +91,22 @@ Display the first highest CPU-consuming processes.
 
 ```bash
 ps aux --sort=-%cpu | head -n 6
+```
+
+
+## Memory Monitoring
+
+
+Display memory usage.
+
+```bash
+free -h
+```
+
+
+Display the processes using the most memory.
+
+```bash
+ps aux --sort=-%mem | head -n 6
+```
  
