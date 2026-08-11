@@ -23,7 +23,7 @@ print_section() {
 	printf '%*s\n' "${#title}" '' | tr ' ' '-'
 }
 
-REPORT_DIR="$HOME/linux-server-monitoring/reports"
+REPORT_DIR="${REPORT_DIR:-$HOME/linux-server-monitoring/reports}"
 TIMESTAMP="$(date '+%Y-%m-%d_%H-%M-%S')"
 REPORT_FILE="$REPORT_DIR/monitoring-report-$TIMESTAMP.txt"
 

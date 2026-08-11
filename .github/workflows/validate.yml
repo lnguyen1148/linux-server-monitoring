@@ -1,0 +1,46 @@
+name: Validate Monitoring Toolkit
+
+on:
+	push:
+		branches:
+			- main
+			- 'feature/**'
+	pull_request:
+		branches:
+			- main
+
+permissions:
+	contents: read
+
+jobs:
+	validate:
+		name: Bash and Report Validation
+		runs-on: ubuntu-latest
+
+	env:
+		REPORT_DIR: ${{ github.workspace }}/ci-reports
+
+	steps:
+		- name: Check out repository
+		  uses: actions/checkout@v4
+
+		- name: Check Bash syntax
+		  run: |
+			bash -n scripts/monitor.sh
+			bash -n scripts/validate-report.sh
+
+		- name: Generate monitoring report
+		  run: bash scripts/monitor.sh
+
+		- name: Run validation gate
+		  run: |
+			REPORT_FILE="$(ls -t "$REPORT_DIR"/monitoring-report-*.txt | head -n 1)"
+			bash scripts/validate-report.sh "$REPORT_FILE"
+
+		- name: Upload validation evidence
+		  if: always()
+		  uses: actions/upload-artifact@v4
+		  with:
+			name: monitoring-report-${{ github.run_number }}
+			path: ci-reports/*.txt
+			if-no-files-found: warn
