@@ -110,3 +110,104 @@ Display the processes using the most memory.
 ps aux --sort=-%mem | head -n 6
 ```
  
+Validate the newest generated monitoring report.
+
+```bash
+REPORT_FILE="$(ls -t reports/monitoring-report-*.txt | head -n 1)"
+bash scripts/validate-report.sh "$REPORT_FILE"
+```
+
+Display the exit status of the previous command.
+
+```bash
+echo $?
+```
+
+
+## Linux Service Validation
+
+Display detailed information about a systemd service.
+
+```bash
+systemctl status ssh --no-pager
+```
+
+Check whether a service is currently active.
+
+```bash
+systemctl is-active ssh
+```
+
+Check a service silently and use only its exit status.
+
+```bash
+systemctl is-active --quiet nginx
+```
+
+Display failed systemd services.
+
+```bash
+systemctl --failed
+```
+
+
+## Command Availability
+
+Check whether a command is available to the shell.
+
+```bash
+command -v aws
+```
+
+Suppress normal and error output when only the command's exit status is needed.
+
+```bash
+command -v aws >/dev/null 2>&1
+```
+
+
+## Network Validation
+
+Resolve a hostname using the system name-service configuration.
+
+```bash
+getent hosts github.com
+```
+
+Display address information for a hostname.
+
+```bash
+getent ahosts github.com
+```
+
+Test outbound HTTPS connectivity with a timeout.
+
+```bash
+curl -fsS --max-time 10 https://github.com >/dev/null
+```
+
+
+## AWS Identity Validation
+
+Verify the AWS identity available to the EC2 instance.
+
+```bash
+aws sts get-caller-identity
+```
+
+Run the identity check silently when only success or failure is needed.
+
+```bash
+aws sts get-caller-identity >/dev/null 2>&1
+```
+
+
+## Bash Debugging
+
+Run a Bash script in trace mode to display commands as they are executed.
+
+```bash
+bash -x scripts/infrastructure-check.sh
+```
+
+
